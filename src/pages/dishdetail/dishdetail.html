@@ -1,7 +1,14 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Dish Details</ion-title>
+    <ion-row>
+      <ion-title>Dish Details</ion-title>
+      <ion-buttons>
+        <button ion-button (click)="openActionSheet()">
+          <ion-icon name="more" align-self-end></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-row>        
   </ion-navbar>
 
 </ion-header>
