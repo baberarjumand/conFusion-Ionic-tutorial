@@ -24,7 +24,7 @@ export class DishdetailPage {
   favorite: boolean = false;
   tempComment: Comment;
   modal = this.modalCtrl.create(CommentPage, this.tempComment);
-
+  
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               @Inject('BaseURL') private BaseURL,
