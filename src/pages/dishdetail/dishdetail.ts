@@ -4,6 +4,7 @@ import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -31,7 +32,8 @@ export class DishdetailPage {
               private favoriteService: FavoriteProvider,
               private toastCtrl: ToastController,
               private actionSheetCtrl: ActionSheetController,
-              public modalCtrl: ModalController ) {
+              public modalCtrl: ModalController,
+              private socialSharing: SocialSharing ) {
     this.dish = navParams.get('dish');
     this.favorite = this.favoriteService.isFavorite(this.dish.id);
     this.numcomments = this.dish.comments.length;
@@ -55,7 +57,7 @@ export class DishdetailPage {
 
   openActionSheet() {
     const actionSheet = this.actionSheetCtrl.create({
-      // title: 'Options',
+      title: 'Select Actions',
       buttons: [
         {
           text: 'Add Comment',          
@@ -69,6 +71,22 @@ export class DishdetailPage {
           handler: () => {
             this.addToFavorites();
             console.log('Add to Favorites clicked');
+          }
+        },
+        {
+          text: 'Share via Facebook',
+          handler: () => {
+            this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+              .then(() => console.log('Posted successfully to Facebook'))
+              .catch(() => console.log('Failed to post to Facebook'));
+          }
+        },
+        {
+          text: 'Share via Twitter',
+          handler: () => {
+            this.socialSharing.shareViaTwitter(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
+              .then(() => console.log('Posted successfully to Twitter'))
+              .catch(() => console.log('Failed to post to Twitter'));
           }
         },
         {
