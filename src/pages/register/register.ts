@@ -54,13 +54,14 @@ export class RegisterPage {
       cameraDirection: this.camera.Direction.FRONT
     }
 
-    this.camera.getPicture(options).then((imageData) => {
-
-      this.image = imageData;
-      console.log(imageData);
-    }, (err) => {
+    this.camera.getPicture(options).then(
+      (imageData) => {
+        this.image = imageData;
+        console.log(imageData);
+      }, (err) => {
         console.log('Error obtaining picture')
-    });
+      }
+    );
   }
 
   onSubmit() {
